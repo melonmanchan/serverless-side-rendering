@@ -2,14 +2,25 @@ if (!global._babelPolyfill) {
    require('babel-polyfill');
 }
 
-export const hello = (event, context, cb) => {
-  const p = new Promise((resolve, reject) => {
-    resolve('success');
-  });
-  p
-    .then(r => cb(null, {
-      message: 'Go Serverless Webpack (Babel) v1.0! Your function executed successfully!',
-      event,
-    }))
-    .catch(e => cb(e));
+const CDP = require('chrome-remote-interface')
+
+const render = async (event, context, cb, chrome) => {
+  try {
+    const version = await CDP.Version()
+    cb(null, { statusCode: 200,
+              body: JSON.stringify({
+                version,
+                chrome,
+              }),
+    })
+  } catch (e) {
+    cb(null, {
+      statusCode: 500,
+      body: JSON.stringify({
+        error,
+      }),
+    })
+  }
 };
+
+module.exports.render = render
