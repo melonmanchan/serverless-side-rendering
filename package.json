@@ -2,9 +2,10 @@
   "name": "serverless-side-rendering",
   "version": "1.0.0",
   "description": "",
-  "main": "handler.js",
+  "main": "dist/handler.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "babel src --out-dir dist",
+    "deploy": "npm run build; serverless deploy"
   },
   "repository": {
     "type": "git",
@@ -17,9 +18,31 @@
   },
   "homepage": "https://github.com/melonmanchan/serverless-side-rendering#readme",
   "devDependencies": {
-    "serverless-plugin-chrome": "^1.0.0-11",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "rimraf": "^2.6.1",
+    "serverless-plugin-chrome": "^1.0.0-11"
   },
   "dependencies": {
     "chrome-remote-interface": "^0.24.4"
+  },
+  "babel": {
+    "sourceMaps": true,
+    "presets": [
+      [
+        "env",
+        {
+          "modules": "commonjs",
+          "targets": {
+            "node": "6.10"
+          }
+        }
+      ]
+    ],
+    "plugins": [
+      "transform-object-rest-spread"
+    ]
   }
 }

@@ -59,7 +59,7 @@ region: eu-central-1
 #
 functions:
   render:
-    handler: handler.render
+    handler: dist/handler.render
     events:
       - http:
           path: render

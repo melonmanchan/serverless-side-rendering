@@ -1,12 +1,20 @@
-const CDP = require('chrome-remote-interface')
+import CPD from 'chrome-remote-interface'
 
-module.exports.render = (event, context, callback, chrome) => {
+module.exports.render = async (event, context, callback, chrome) => {
+  try {
+    const asd = await CPD.Version()
+  } catch (error) {
+      callback(null, { error })
+    return
+  }
+
   CDP.Version()
     .then((versionInfo) => {
       callback(null, {
         statusCode: 200,
         body: JSON.stringify({
           versionInfo,
+          asd,
           chrome,
         }),
       })
