@@ -23,6 +23,7 @@ plugins:
 provider:
   name: aws
   runtime: nodejs6.10
+  timeout: 30 # optional, in seconds, default is 6
 
 # you can overwrite defaults here
 #  stage: dev
