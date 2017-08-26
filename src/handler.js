@@ -15,6 +15,7 @@ async function getPageHTML (url) {
     })
 
     const html = result.result.value
+    await client.close()
     return html
   } catch (error) {
     console.log(error)
