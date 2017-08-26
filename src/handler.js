@@ -24,18 +24,11 @@ async function getPageHTML (url) {
 }
 
 export const render = async (event, context, callback) => {
-  const res = {}
   const url = event.query && event.query.url
-
-  if (!url) {
-    res.statusCode = 400
-    res.error = 'Missing URL'
-  } else {
+  if (url) {
     const body = await getPageHTML(url)
-
-    res.statusCode = 200
-    res.html = body
+    callback(null, body)
+  } else {
+    callback(null, 'URL is missing')
   }
-
-  callback(null, res)
 }
