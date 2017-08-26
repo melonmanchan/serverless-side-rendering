@@ -1,26 +1,22 @@
-if (!global._babelPolyfill) {
-   require('babel-polyfill');
-}
-
 const CDP = require('chrome-remote-interface')
 
-const render = async (event, context, cb, chrome) => {
-  try {
-    const version = await CDP.Version()
-    cb(null, { statusCode: 200,
-              body: JSON.stringify({
-                version,
-                chrome,
-              }),
+module.exports.render = (event, context, callback, chrome) => {
+  CDP.Version()
+    .then((versionInfo) => {
+      callback(null, {
+        statusCode: 200,
+        body: JSON.stringify({
+          versionInfo,
+          chrome,
+        }),
+      })
     })
-  } catch (e) {
-    cb(null, {
-      statusCode: 500,
-      body: JSON.stringify({
-        error,
-      }),
+    .catch((error) => {
+      callback(null, {
+        statusCode: 500,
+        body: JSON.stringify({
+          error,
+        }),
+      })
     })
-  }
-};
-
-module.exports.render = render
+}
