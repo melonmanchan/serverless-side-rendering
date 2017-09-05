@@ -1,6 +1,8 @@
 # Serverless-side rendering
 Simple serverless application for performing SSR
 
+Demo at https://nobszpf7yj.execute-api.eu-central-1.amazonaws.com/dev/render?url=https://github.com
+
 ## Usage
 
 First, install serverless and set up your AWS credentials
